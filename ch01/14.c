@@ -9,11 +9,24 @@ void initHash(long hash[])
   }
 }
 
+// need to pass s here  since we aren't allowed to pass reference to local var back
+char* makeVisible (char c, char * s)
+{
+  switch (c) {
+    case '\n': return "\\n";
+    case '\t': return "\\t";
+    case '\b': return "\\b";
+    case '\\': return "\\\\";
+    default: return s;
+  }
+}
+
 void drawBar(c, len)
 {
   if (len == 0) return;
 
-  printf("%c: ", c);
+  char s[] = { c, '\0' };
+  printf("%s: ", makeVisible(c, s));
   for (int i = 0; i < len; i++) {
     putchar('#');
   }
